@@ -84,7 +84,7 @@ left_co, cent_co, last_co = st.columns(3)
 with cent_co:
     st.image("./pandamix.png", width=200)
 
-title_text = "DJ Panda is here to save your night (and project presentation day...)!! 🐼👯‍♀️🪩🎉🍾🎊🥳🍺🍷🍸🦄🌈🥰🤡🤖👾"
+title_text = "DJ Panda is here to save your night!! 🐼👯‍♀️🪩🎉🍾🎊🥳🍺🍷🍸🦄🌈🥰🤡🤖👾"
 st.title(title_text)
 
 st.write(
