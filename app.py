@@ -3,6 +3,14 @@ import streamlit as st
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.preprocessing import MinMaxScaler
 
+"""
+TO DO:
+- Make case-insensitive input / have dropdown with similar song names / suggestions 
+- Put the code onto Streamlit Cloud
+- Have a song player button next to each song in the dataframe? 
+- Spotify API with more songs
+"""
+
 
 ## ALL FUNCTIONAL CODE
 def create_playlist(input):
@@ -41,7 +49,21 @@ def create_playlist(input):
 
 
 def main():
-    input = st.text_input("Enter your favourite song 👇")
+    st.markdown(
+        """
+  <style>
+    .css-1v0mbdj > img{
+      border-radius: 50%;
+    }
+  </style>
+""",
+        unsafe_allow_html=True,
+    )
+    left_co, cent_co, last_co = st.columns(3)
+    with cent_co:
+        st.image("./pandamix.png", width=300)
+
+    input = st.text_input("Enter your favourite song  🎹🎸")
     print(input)
 
     # Create a button
