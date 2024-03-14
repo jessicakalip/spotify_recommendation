@@ -5,16 +5,13 @@ from sklearn.preprocessing import MinMaxScaler
 import string
 from difflib import SequenceMatcher
 
-"""
-TO DO:
-- Fix speed with Cache
-- Change Font Colors to make it more visible / use Marion's background pictures
-- Display result as song player button (open in Spotify?) next to each song 
-- Spotify API with more songs
-"""
+# TO DO:
+# - Fix speed with Cache
+# - Change Font Colors to make it more visible / use Marion's background pictures
+# - Display result as song player button (open in Spotify?) next to each song
+# - Spotify API with more songs
 
 
-## TEST TEST_____________________________________________________________________
 # Cleans up the names and input (code from class)
 def basic_cleaning(sentence):
     sentence = sentence.lower()
@@ -39,8 +36,6 @@ def get_most_similar(df, user_input, num_values=5):
     name_list = song_df.loc[: num_values - 1, "name"].tolist()
     return name_list
 
-
-## TEST TEST_____________________________________________________________________
 
 url = "https://wagon-public-datasets.s3.amazonaws.com/Machine%20Learning%20Datasets/ML_spotify_data.csv"
 df = pd.read_csv(url)
@@ -72,10 +67,11 @@ def create_playlist(input):
     return playlist
 
 
+# background: linear-gradient(-45deg, rgba(255,0,0,1) 0%, rgba(255,154,0,1) 10%, rgba(208,222,33,1) 20%, rgba(79,220,74,1) 30%, rgba(63,218,216,1) 40%, rgba(47,201,226,1) 50%, rgba(28,127,238,1) 60%, rgba(95,21,242,1) 70%, rgba(186,12,248,1) 80%, rgba(251,7,217,1) 90%, rgba(255,0,0,1) 100%);
 page_bg_img = f"""
 <style>
 [data-testid="stAppViewContainer"] > .main {{
-background: linear-gradient(-45deg, rgba(255,0,0,1) 0%, rgba(255,154,0,1) 10%, rgba(208,222,33,1) 20%, rgba(79,220,74,1) 30%, rgba(63,218,216,1) 40%, rgba(47,201,226,1) 50%, rgba(28,127,238,1) 60%, rgba(95,21,242,1) 70%, rgba(186,12,248,1) 80%, rgba(251,7,217,1) 90%, rgba(255,0,0,1) 100%);
+background-image: radial-gradient( circle farthest-corner at 10% 20%, rgba(222,168,248,1) 0%, rgba(168,222,258,1) 21.9%, rgba(189,250,205,1) 35.6%, rgba(243,250,189,1) 53.9%, rgba(250,227,189,1) 66.8%, rgba(248,172,171,1) 95%, rgba(254,170,212,1) 99.9% );
 }}
 </style>
 """
@@ -109,7 +105,9 @@ suggested_songs = get_most_similar(df, input, num_values=5)
 print(suggested_songs)
 
 
-option = st.selectbox("How would you like to be contacted?", suggested_songs)
+option = st.selectbox(
+    "Songs related to your input, existing in our dataset", suggested_songs
+)
 
 st.write("You selected:", option)
 
