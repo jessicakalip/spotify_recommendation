@@ -5,12 +5,6 @@ from sklearn.preprocessing import MinMaxScaler
 import string
 from difflib import SequenceMatcher
 
-# TO DO:
-# - Fix speed with Cache
-# - Change Font Colors to make it more visible / use Marion's background pictures
-# - Display result as song player button (open in Spotify?) next to each song
-# - Spotify API with more songs
-
 
 # Cleans up the names and input (code from class)
 def basic_cleaning(sentence):
@@ -51,7 +45,6 @@ X_scaled = scaler.fit_transform(X)
 knn_model = KNeighborsRegressor().fit(X_scaled, y)  # Instanciate and train model
 
 
-## ALL FUNCTIONAL CODE
 def create_playlist(input):
     input_song = df[df["name"] == input]
 
@@ -67,7 +60,6 @@ def create_playlist(input):
     return playlist
 
 
-# background: linear-gradient(-45deg, rgba(255,0,0,1) 0%, rgba(255,154,0,1) 10%, rgba(208,222,33,1) 20%, rgba(79,220,74,1) 30%, rgba(63,218,216,1) 40%, rgba(47,201,226,1) 50%, rgba(28,127,238,1) 60%, rgba(95,21,242,1) 70%, rgba(186,12,248,1) 80%, rgba(251,7,217,1) 90%, rgba(255,0,0,1) 100%);
 page_bg_img = f"""
 <style>
 [data-testid="stAppViewContainer"] > .main {{
@@ -117,5 +109,13 @@ if st.button("Generate Playlist"):
     # Call the function when the button is clicked
     result = create_playlist(option)
 
-    # Display the result
-    st.dataframe(result)
+    result["artists_clean"] = result["artists"].map(lambda x: x[2:-2])
+    result["name_artist"] = result["name"] + " - " + result["artists_clean"]
+    songs = result["name_artist"]
+
+    for idx, song in enumerate(songs):
+        concatenated_song = song.replace(" ", "+")
+        youtube_link = (
+            f"https://www.youtube.com/results?search_query={concatenated_song}"
+        )
+        st.write(f"{idx+1}. {song} [Click to Listen](%s)" % youtube_link)
